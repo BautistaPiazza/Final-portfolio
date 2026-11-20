@@ -230,6 +230,7 @@ h1 span,
   overflow: hidden;
   border-radius: 48% 48% 44% 44%;
   background: #e7e8d8;
+  transition: transform 180ms ease-out;
 }
 
 .hero-art::before {
@@ -420,6 +421,17 @@ h1 span,
 
 .project-card {
   min-width: 0;
+}
+
+.js-enabled .project-card {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 520ms ease var(--reveal-delay, 0ms), transform 520ms ease var(--reveal-delay, 0ms);
+}
+
+.js-enabled .project-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .project-link {
@@ -769,6 +781,81 @@ h1 span,
   letter-spacing: 0.11em;
 }
 
+.cover-retirement {
+  background: linear-gradient(145deg, #c9dfb2 0%, #f1efc7 100%);
+  color: #26352f;
+}
+
+.retirement-sun {
+  width: 134px;
+  height: 134px;
+  position: absolute;
+  right: -12px;
+  top: -22px;
+  border: 1px solid rgba(75, 104, 66, 0.24);
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, rgba(95, 125, 73, 0.25) 0deg 3deg, transparent 3deg 12deg);
+  animation: retirement-spin 24s linear infinite;
+}
+
+.retirement-sun i {
+  width: 58px;
+  height: 58px;
+  position: absolute;
+  inset: 38px;
+  border-radius: 50%;
+  background: #d9e98e;
+  box-shadow: 0 9px 24px rgba(91, 115, 65, 0.16);
+}
+
+.retirement-card {
+  width: 62%;
+  min-height: 132px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px 18px;
+  border: 1px solid rgba(61, 82, 65, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 254, 246, 0.92);
+  box-shadow: 9px 11px 0 rgba(70, 98, 58, 0.12);
+  transform: rotate(-3deg);
+  transition: transform 220ms ease;
+}
+
+.project-link:hover .retirement-card {
+  transform: rotate(0deg) translateY(-3px);
+}
+
+.retirement-card small {
+  margin-bottom: 5px;
+  color: #71805c;
+  font-size: 0.52rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.retirement-card b {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.retirement-card em {
+  margin-top: 10px;
+  color: #65764d;
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@keyframes retirement-spin {
+  to { transform: rotate(360deg); }
+}
+
 .cover-groceries {
   background: #dce5ce;
 }
@@ -944,11 +1031,21 @@ h1 span,
 
 .activity-list li {
   min-height: 64px;
+  border-bottom: 1px solid #ced2c3;
+}
+
+.activity-link {
+  min-height: 64px;
   display: grid;
   grid-template-columns: 68px minmax(0, 1fr) auto;
   align-items: center;
   gap: 14px;
-  border-bottom: 1px solid #ced2c3;
+  transition: padding 160ms ease, color 160ms ease;
+}
+
+.activity-link:hover {
+  padding-inline: 8px;
+  color: #53673a;
 }
 
 .activity-code {
@@ -1206,11 +1303,15 @@ h1 span,
   }
 
   .activity-list li {
+    min-height: 64px;
+  }
+
+  .activity-link {
     grid-template-columns: 50px minmax(0, 1fr) auto;
     gap: 8px;
   }
 
-  .activity-list li > span:nth-child(2) {
+  .activity-link > span:nth-child(2) {
     font-size: 0.78rem;
   }
 
@@ -1251,6 +1352,12 @@ h1 span,
   *::before,
   *::after {
     scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .js-enabled .project-card {
+    opacity: 1;
+    transform: none;
   }
 }
